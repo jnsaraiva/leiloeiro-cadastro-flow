@@ -22,6 +22,15 @@ const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
+  const disposableDomains = [
+    'mailinator.com',
+    'tempmail.com',
+    '10minutemail.com',
+    'guerrillamail.com',
+    'yopmail.com',
+    'sharklasers.com'
+  ];
+
   const validateForm = (): boolean => {
     if (!formData.nome_empresa.trim()) {
       setMessage({ type: "error", text: "Nome da empresa é obrigatório" });
