@@ -73,7 +73,7 @@ const RegisterForm = () => {
         },
         body: JSON.stringify(formData),
       });
-
+console.log(response);
       const data: ApiResponse = await response.json();
 
       if (data.status === "sucesso") {
