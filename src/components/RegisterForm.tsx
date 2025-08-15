@@ -34,9 +34,9 @@ const RegisterForm = () => {
     }
 
     const emailDomain = formData.email.split('@')[1].toLowerCase();
-if (formData.email.includes(emailDomain)) {
-  return erro("Não é permitido usar e-mail temporário");
-}
+    if (formData.email.includes(emailDomain)) {
+      return erro("Não é permitido usar e-mail temporário");
+    }
   
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
