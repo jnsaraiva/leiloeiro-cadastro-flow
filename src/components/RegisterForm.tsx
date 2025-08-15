@@ -33,6 +33,17 @@ const RegisterForm = () => {
       return false;
     }
 
+     if (!formData.email.trim()) {
+      setMessage({ type: "error", text: "E-mail é obrigatório" });
+      return false;
+    }
+
+    const emailDomain = email.split('@')[1].toLowerCase();
+if (formData.email.includes(emailDomain)) {
+  return erro("Não é permitido usar e-mail temporário");
+}
+  
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setMessage({ type: "error", text: "E-mail deve ter um formato válido" });
