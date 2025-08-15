@@ -73,9 +73,9 @@ const RegisterForm = () => {
         },
         body: JSON.stringify(formData),
       });
-console.log(response);
-      const data: ApiResponse = await response.json();
 
+      const data: ApiResponse = await response.json();
+console.log(response.json);
       if (data.status === "sucesso") {
         setMessage({ type: "success", text: "Cadastro realizado com sucesso!" });
         setFormData({ nome_empresa: "", email: "", senha: "" });
