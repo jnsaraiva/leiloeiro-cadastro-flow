@@ -45,7 +45,7 @@ const RegisterForm = () => {
     const emailDomain = formData.email.split('@')[1].toLowerCase();
     for(let i=0; i<disposableDomains.length; i++){
       if(emailDomain == disposableDomains[i]) {
-        setMessage({ type: "error", text: "E-mails temporarios nao" });
+        setMessage({ type: "error", text: "E-mails temporários não são permitidos!" });
         return false;
       }
     }
