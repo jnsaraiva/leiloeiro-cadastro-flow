@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Building2, Mail, Lock, Loader2 } from "lucide-react";
+import { Building2, Mail, Lock, Loader2, Phone } from "lucide-react";
 import { toast } from "sonner";
 
 interface FormData {
   nome_empresa: string;
   email: string;
+  whatsapp: string;
   senha: string;
 }
 
@@ -17,6 +18,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState<FormData>({
     nome_empresa: "",
     email: "",
+    whatsapp: "",
     senha: "",
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -44,16 +46,27 @@ const RegisterForm = () => {
 
     const emailDomain = formData.email.split('@')[1].toLowerCase();
     for(let i=0; i<disposableDomains.length; i++){
-      if(emailDomain == disposableDomains[i]) {
+      if(emailDomain == disposableDomains[i]) {
         setMessage({ type: "error", text: "E-mails temporários não são permitidos!" });
         return false;
       }
-    }
+    }
   
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setMessage({ type: "error", text: "E-mail deve ter um formato válido" });
+      return false;
+    }
+
+    if (!formData.whatsapp.trim()) {
+      setMessage({ type: "error", text: "WhatsApp é obrigatório" });
+      return false;
+    }
+
+    const whatsappRegex = /^(\+?55\s?)?(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$/;
+    if (!whatsappRegex.test(formData.whatsapp.replace(/\s/g, ''))) {
+      setMessage({ type: "error", text: "WhatsApp deve ter um formato válido (ex: 11999999999)" });
       return false;
     }
 
@@ -96,7 +109,7 @@ const RegisterForm = () => {
 console.log(response.json);
       if (data.status === "sucesso") {
         setMessage({ type: "success", text: "Cadastro realizado com sucesso!" });
-        setFormData({ nome_empresa: "", email: "", senha: "" });
+        setFormData({ nome_empresa: "", email: "", whatsapp: "", senha: "" });
         toast.success("Cadastro realizado com sucesso!");
       } else {
         const errorMessage = data.message || "Erro ao realizar cadastro";
@@ -144,6 +157,20 @@ console.log(response.json);
             value={formData.email}
             onChange={handleInputChange}
             placeholder="E-mail corporativo"
+            className="form-input"
+            required
+          />
+        </div>
+
+        {/* WhatsApp */}
+        <div className="relative">
+          <Phone className="input-icon" />
+          <input
+            type="tel"
+            name="whatsapp"
+            value={formData.whatsapp}
+            onChange={handleInputChange}
+            placeholder="WhatsApp (ex: 11999999999)"
             className="form-input"
             required
           />
