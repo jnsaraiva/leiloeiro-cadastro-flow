@@ -1,155 +1,158 @@
-import RegisterForm from "@/components/RegisterForm";
-import Header from "@/components/Header";
-import PricingCard from "@/components/PricingCard";
-import ReviewCard from "@/components/ReviewCard";
-import Banner from "@/components/Banner";
-import { Check } from "lucide-react";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-const Index = () => {
-  const benefits = [
-    "Automatize seus anúncios com inteligência artificial",
-    "Remova fundo de imagens em 1 clique",
-    "Publique direto nas redes sociais oficiais da LeilãoLovers",
-  ];
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
 
-  const pricingPlans = [
-    {
-      title: "Créditos Avulsos",
-      description: "Compre créditos e use quando quiser.",
-      price: "R$ 49",
-      features: ["Pacote inicial com 10 anúncios", "Validade de 1 ano", "Suporte via e-mail"],
-      ctaText: "Comprar créditos",
-    },
-    {
-      title: "Plano Pro",
-      description: "Para leiloeiros com fluxo constante de peças.",
-      price: "R$ 199",
-      features: ["Até 30 anúncios por mês", "Inclui IA e edição de imagens", "Relatórios básicos de desempenho"],
-      ctaText: "Assinar Pro",
-      highlighted: true,
-    },
-    {
-      title: "Plano Premium",
-      description: "Para grandes acervos e leiloeiras.",
-      price: "R$ 399",
-      features: ["Anúncios ilimitados", "Suporte prioritário 24/7", "Relatórios avançados e insights"],
-      ctaText: "Assinar Premium",
-    },
-  ];
+@layer base {
+  :root {
+    --background: 220 9% 89%; /* Medium Gray */
+    --foreground: 220 20% 15%;
 
-  const reviews = [
-    {
-      name: "Roberto Almeida",
-      title: "Leiloeiro, Arte &amp; Antiguidades",
-      avatarUrl: "https://i.pravatar.cc/150?img=12",
-      rating: 5,
-      reviewText: "A plataforma transformou a forma como divulgamos nossas peças. A automação com IA para criar anúncios é simplesmente fantástica e nos poupa horas de trabalho.",
-    },
-    {
-      name: "Cláudia Martins",
-      title: "Gerente de Acervo, Leilões Clássicos",
-      avatarUrl: "https://i.pravatar.cc/150?img=35",
-      rating: 5,
-      reviewText: "O alcance que ganhamos nas redes sociais da LeilãoLovers é incomparável. Nossas peças raras agora são vistas por colecionadores que antes não conseguíamos alcançar.",
-    },
-    {
-      name: "Fernando Costa",
-      title: "Proprietário, Costa Leilões",
-      avatarUrl: "https://i.pravatar.cc/150?img=68",
-      rating: 4,
-      reviewText: "A ferramenta de remoção de fundo é um divisor de águas. As fotos dos nossos lotes ficaram muito mais profissionais, o que aumentou o interesse e os lances.",
-    },
-  ];
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
 
-  return (
-    <div className="bg-gray-300 text-gray-800">
-      <Header />
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
 
-      <main>
-        {/* Hero Section */}
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:pt-16 md:pb-24">
-          <Banner />
-          <div className="grid lg:grid-cols-2 lg:gap-16 items-center mt-8">
-            {/* Coluna Esquerda: Formulário */}
-            <div className="bg-black p-8 rounded-lg shadow-lg border border-gray-800">
-              <div className="text-center lg:text-left mb-6">
-                <h2 className="text-3xl font-bold tracking-tight text-white">
-                  Comece a anunciar agora mesmo
-                </h2>
-                <p className="mt-2 text-lg text-gray-300">
-                  Cadastre-se grátis e valide sua conta em segundos.
-                </p>
-              </div>
-              <RegisterForm />
-            </div>
+    --primary: 142 76% 36%; /* Green */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 214 100% 50%; /* Blue */
 
-            {/* Coluna Direita: Conteúdo Publicitário */}
-            <div className="mt-12 lg:mt-0">
-              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 !leading-tight">
-                A vitrine digital perfeita para seus leilões.
-              </h1>
-              <p className="mt-4 text-xl text-gray-600">
-                Com a LeilãoLovers, você foca no leilão e nós cuidamos da divulgação.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <Check className="h-6 w-6 text-green-500" />
-                    </div>
-                    <p className="ml-3 text-lg text-gray-700">{benefit}</p>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 p-4 rounded-md bg-brand-teal-light border-l-4 border-brand-teal">
-                <p className="text-md text-brand-teal-dark italic">
-                  "Colecionadores de todo o Brasil já estão conectados. Seja parte da nova forma de promover suas peças exclusivas."
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 20% 15%;
 
-        {/* Reviews Section */}
-        <section className="bg-white py-12 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                O que nossos clientes dizem
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                Veja como a LeilãoLovers está ajudando leiloeiros a alcançarem mais colecionadores.
-              </p>
-            </div>
-            <div className="mt-12 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
-              {reviews.map((review) => (
-                <ReviewCard key={review.name} {...review} />
-              ))}
-            </div>
-          </div>
-        </section>
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 55%;
 
-        {/* Pricing Section */}
-        <section className="bg-white py-12 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Escolha o melhor plano para você
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                Planos flexíveis que crescem com o seu negócio. Cancele quando quiser.
-              </p>
-            </div>
-            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {pricingPlans.map((plan) => (
-                <PricingCard key={plan.title} {...plan} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-};
+    --accent: 214 100% 97%;
+    --accent-foreground: 214 100% 50%;
 
-export default Index;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 15% 90%;
+    --input: 220 15% 96%;
+    --ring: 142 76% 36%; /* Green */
+
+    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
+    --shadow-form: 0 10px 30px -5px hsl(142 76% 36% / 0.1);
+    --shadow-button: 0 4px 15px hsl(142 76% 36% / 0.3);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 142 76% 40%; /* Green */
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary-hover: 214 100% 55%; /* Blue */
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 76% 40%; /* Green */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  .form-container {
+    @apply bg-card rounded-xl shadow-[var(--shadow-form)] border border-border;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 pl-12 bg-input border border-border rounded-lg
+           focus:ring-2 focus:ring-ring focus:border-transparent
+           transition-all duration-200 text-foreground placeholder:text-muted-foreground;
+  }
+
+  .form-button {
+    @apply w-full bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground
+           font-medium py-3 px-6 rounded-lg transition-all duration-200
+           shadow-[var(--shadow-button)] hover:shadow-lg
+           disabled:opacity-50 disabled:cursor-not-allowed
+           flex items-center justify-center gap-2;
+  }
+
+  .input-icon {
+    @apply absolute left-4 top-1/2 transform -translate-y-1/2
+           text-muted-foreground w-5 h-5;
+  }
+
+  .spinner {
+    @apply animate-spin w-4 h-4;
+  }
+
+  .message-success {
+    @apply text-success bg-success/10 border border-success/20
+           px-4 py-3 rounded-lg text-sm font-medium;
+  }
+
+  .message-error {
+    @apply text-destructive bg-destructive/10 border border-destructive/20
+           px-4 py-3 rounded-lg text-sm font-medium;
+  }
+}
+
+/* Add a simple pattern for the banner background */
+.bg-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
