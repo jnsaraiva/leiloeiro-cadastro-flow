@@ -1,6 +1,7 @@
 import RegisterForm from "@/components/RegisterForm";
 import Header from "@/components/Header";
 import PricingCard from "@/components/PricingCard";
+import ReviewCard from "@/components/ReviewCard";
 import { Check } from "lucide-react";
 
 const Index = () => {
@@ -35,11 +36,35 @@ const Index = () => {
     },
   ];
 
+  const reviews = [
+    {
+      name: "Roberto Almeida",
+      title: "Leiloeiro, Arte &amp; Antiguidades",
+      avatarUrl: "https://i.pravatar.cc/150?img=12",
+      rating: 5,
+      reviewText: "A plataforma transformou a forma como divulgamos nossas peças. A automação com IA para criar anúncios é simplesmente fantástica e nos poupa horas de trabalho.",
+    },
+    {
+      name: "Cláudia Martins",
+      title: "Gerente de Acervo, Leilões Clássicos",
+      avatarUrl: "https://i.pravatar.cc/150?img=35",
+      rating: 5,
+      reviewText: "O alcance que ganhamos nas redes sociais da LeilãoLovers é incomparável. Nossas peças raras agora são vistas por colecionadores que antes não conseguíamos alcançar.",
+    },
+    {
+      name: "Fernando Costa",
+      title: "Proprietário, Costa Leilões",
+      avatarUrl: "https://i.pravatar.cc/150?img=68",
+      rating: 4,
+      reviewText: "A ferramenta de remoção de fundo é um divisor de águas. As fotos dos nossos lotes ficaram muito mais profissionais, o que aumentou o interesse e os lances.",
+    },
+  ];
+
   return (
     <div className="bg-white text-gray-800">
       <Header />
 
-      <main className="pt-16">
+      <main className="pt-[340px]">
         {/* Hero Section */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="grid lg:grid-cols-2 lg:gap-16 items-center">
@@ -77,6 +102,25 @@ const Index = () => {
               <p className="mt-8 text-md text-gray-500 italic">
                 "Colecionadores de todo o Brasil já estão conectados. Seja parte da nova forma de promover suas peças exclusivas."
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Reviews Section */}
+        <section className="bg-white py-16 md:py-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                O que nossos clientes dizem
+              </h2>
+              <p className="mt-4 text-lg text-gray-600">
+                Veja como a LeilãoLovers está ajudando leiloeiros a alcançarem mais colecionadores.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
+              {reviews.map((review) => (
+                <ReviewCard key={review.name} {...review} />
+              ))}
             </div>
           </div>
         </section>
