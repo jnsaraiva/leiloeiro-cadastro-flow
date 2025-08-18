@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -111,6 +113,10 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
 }
 
 @layer components {
@@ -155,4 +161,71 @@ All colors MUST be HSL.
 /* Add a simple pattern for the banner background */
 .bg-pattern {
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+@media (max-width: 768px) {
+  body {
+    background-color: white;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    font-size: 1rem; /* Base font size for readability */
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  /* 1. Header and Visual Identity */
+  header .flex-shrink-0 img {
+    /* 30% size reduction from 62px */
+    height: 43px;
+  }
+
+  header .flex-shrink-0 span {
+    /* Adjusted for visual harmony with the smaller logo */
+    font-size: 1.15rem;
+    white-space: nowrap;
+  }
+
+  /* 2. Typography Hierarchy */
+  h1, .text-4xl {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  h2, .text-3xl, .text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  h3, .text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  /* 3. Form Refinements */
+  .form-container {
+    /* Cleaner look for mobile */
+    padding: 1.5rem;
+    box-shadow: none;
+    border-width: 1px;
+  }
+
+  .form-container .relative + .relative {
+    /* Increased vertical spacing for better usability */
+    margin-top: 1.5rem;
+  }
+
+  .form-input {
+    /* Consistent height and overflow handling */
+    height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-appearance: none; /* Removes default iOS input styling */
+  }
+
+  .form-button {
+    height: 50px;
+  }
 }

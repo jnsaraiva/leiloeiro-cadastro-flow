@@ -67,3 +67,17 @@
 .message-error {
   @apply mt-4 text-center text-sm font-medium text-red-600 bg-red-50 p-3 rounded-md;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust form input font size for better placeholder visibility */
+  .form-input {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  /* Reduce hero section heading size on mobile */
+  h1.text-5xl {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+  }
+}

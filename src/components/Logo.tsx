@@ -6,7 +6,7 @@ const Logo: React.FC = () => {
       <img
         src="https://res.cloudinary.com/dcd81ymqx/image/upload/v1755466311/leilaolovers_preta_ok6axy.png"
         alt="LeilãoLovers Logo"
-        className="h-[69px] w-auto"
+        className="h-[62px] w-auto"
       />
       <span className="font-semibold text-gray-800 text-2xl">
         leilaolovers.com.br
