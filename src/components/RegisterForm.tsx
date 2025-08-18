@@ -116,7 +116,7 @@ const RegisterForm = () => {
 
       const data: ApiResponse = await response.json();
 console.log(response.json);
-      if (data.status === "success") {
+      if (data.status === "sucesso") {
         setMessage({ type: "success", text: "Cadastro realizado com sucesso!" });
         setFormData({ nome_empresa: "", email: "", whatsapp: "", senha: "" });
         toast.success("Cadastro realizado com sucesso!");
