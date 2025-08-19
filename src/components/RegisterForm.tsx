@@ -34,13 +34,13 @@ const RegisterForm = () => {
   const [otpMessage, setOtpMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const disposableDomains = [
-    'mailinator.com',
-    'tempmail.com',
-    '10minutemail.com',
-    'guerrillamail.com',
-    'yopmail.com',
-    'sharklasers.com'
-  ];
+    'mailinator.com',
+    'tempmail.com',
+    '10minutemail.com',
+    'guerrillamail.com',
+    'yopmail.com',
+    'sharklasers.com'
+  ];
 
   const validateForm = (): boolean => {
     if (!formData.nome_empresa.trim()) {
@@ -54,11 +54,9 @@ const RegisterForm = () => {
     }
 
     const emailDomain = formData.email.split('@')[1].toLowerCase();
-    for(let i=0; i<disposableDomains.length; i++){
-      if(emailDomain == disposableDomains[i]) {
-        setMessage({ type: "error", text: "E-mails temporários não são permitidos!" });
-        return false;
-      }
+    if (disposableDomains.includes(emailDomain)) {
+      setMessage({ type: "error", text: "E-mails temporários não são permitidos!" });
+      return false;
     }
   
 
@@ -103,8 +101,8 @@ const RegisterForm = () => {
     setIsLoading(true);
 
     try {
-      // Replace with actual webhook URL
-      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/cadastro2";
+      // ✅ URL do webhook de cadastro inicial
+      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/cadastro";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
@@ -115,15 +113,12 @@ const RegisterForm = () => {
       });
 
       const data: ApiResponse = await response.json();
-console.log(response.json);
-      if (data.status === "sucesso") {
-        setMessage({ type: "success", text: "Cadastro realizado com sucesso!" });
-        setFormData({ nome_empresa: "", email: "", whatsapp: "", senha: "" });
-        toast.success("Cadastro realizado com sucesso!");
-      } else if (data.status === "aguardando_verificacao") {
-        setMessage({ type: "success", text: "Cadastro enviado! Agora confirme sua conta." });
+      
+      // ✅ A resposta agora é "pronto_para_verificacao"
+      if (data.status === "pronto_para_verificacao") {
+        setMessage({ type: "success", text: "Dados validados! Agora confirme sua conta." });
         setVerificationStep(true);
-        toast.success("Cadastro enviado! Confirme sua conta para continuar.");
+        toast.success("Cadastro validado! Escolha o método de verificação.");
       } else {
         const errorMessage = data.message || "Erro ao realizar cadastro";
         setMessage({ type: "error", text: errorMessage });
@@ -143,18 +138,21 @@ console.log(response.json);
     setFormData(prev => ({ ...prev, [name]: value }));
     setMessage(null);
   };
-
-  const handleResendCode = async () => {
-    if (!verificationMethod) {
+  
+  // ✅ Nova função para enviar o código após o usuário escolher o método
+  const handleSendOtp = async (method: "email" | "whatsapp" | null) => {
+    if (!method) {
       setOtpMessage({ type: "error", text: "Selecione um método de verificação" });
       return;
     }
 
+    setVerificationMethod(method);
     setIsResending(true);
     setOtpMessage(null);
 
     try {
-      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook-test/leiloeiro/cadastro";
+      // ✅ URL do webhook para envio/reenvio do código
+      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/send-otp";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
@@ -162,18 +160,19 @@ console.log(response.json);
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          verification_method: verificationMethod
+          email: formData.email,
+          whatsapp: formData.whatsapp,
+          verification_method: method
         }),
       });
 
       const data: ApiResponse = await response.json();
       
       if (data.status === "aguardando_verificacao") {
-        setOtpMessage({ type: "success", text: "Código reenviado com sucesso!" });
-        toast.success("Código reenviado!");
+        setOtpMessage({ type: "success", text: `Código enviado para o ${method}!` });
+        toast.success(`Código enviado!`);
       } else {
-        const errorMessage = data.message || "Erro ao reenviar código";
+        const errorMessage = data.message || "Erro ao enviar código";
         setOtpMessage({ type: "error", text: errorMessage });
         toast.error(errorMessage);
       }
@@ -185,7 +184,7 @@ console.log(response.json);
       setIsResending(false);
     }
   };
-
+  
   const handleVerifyOtp = async () => {
     if (!otpCode || otpCode.length !== 6) {
       setOtpMessage({ type: "error", text: "Digite o código de 6 dígitos" });
@@ -196,7 +195,8 @@ console.log(response.json);
     setOtpMessage(null);
 
     try {
-      const verifyUrl = "https://n8n.leilaolovers.com.br/webhook-test/leiloeiro/verify-otp";
+      // ✅ URL do webhook para verificação do código
+      const verifyUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/verify-otp";
       
       const response = await fetch(verifyUrl, {
         method: "POST",
@@ -350,7 +350,8 @@ console.log(response.json);
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
-                onClick={() => setVerificationMethod("email")}
+                // ✅ Atualizado para a nova função
+                onClick={() => handleSendOtp("email")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "email"
                     ? "bg-primary text-primary-foreground border-primary"
@@ -362,7 +363,8 @@ console.log(response.json);
               </button>
               <button
                 type="button"
-                onClick={() => setVerificationMethod("whatsapp")}
+                // ✅ Atualizado para a nova função
+                onClick={() => handleSendOtp("whatsapp")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "whatsapp"
                     ? "bg-primary text-primary-foreground border-primary"
@@ -378,7 +380,8 @@ console.log(response.json);
           {/* Resend Code Button */}
           <button
             type="button"
-            onClick={handleResendCode}
+            // ✅ Atualizado para a nova função
+            onClick={() => handleSendOtp(verificationMethod)}
             disabled={isResending || !verificationMethod}
             className="form-button bg-secondary text-secondary-foreground hover:bg-secondary/80"
           >
