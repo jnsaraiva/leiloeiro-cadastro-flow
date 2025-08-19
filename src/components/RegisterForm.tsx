@@ -104,7 +104,7 @@ const RegisterForm = () => {
 
     try {
       // Replace with actual webhook URL
-      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/cadastro";
+      const webhookUrl = "https://n8n.leilaolovers.com.br:5678/webhook/leiloeiro/cadastro";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
