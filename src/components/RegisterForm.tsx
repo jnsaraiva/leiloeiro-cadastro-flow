@@ -102,7 +102,7 @@ const RegisterForm = () => {
 
     try {
       // ✅ URL do webhook de cadastro inicial
-      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/cadastro2";
+      const webhookUrl = "https://n8n.leilaolovers.com.br/webhook-test/leiloeiro/cadastro2";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
