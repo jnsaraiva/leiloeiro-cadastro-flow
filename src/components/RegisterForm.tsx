@@ -120,7 +120,7 @@ const RegisterForm = () => {
         setVerificationStep(true);
         toast.success("Cadastro validado! Escolha o método de verificação.");
       } else {
-        const errorMessage = data.message || "Erro ao realizar cadastroxxx";
+        const errorMessage = data.message || "Erro ao realizar cadastro";
         setMessage({ type: "error", text: errorMessage });
         toast.error(errorMessage);
       }
