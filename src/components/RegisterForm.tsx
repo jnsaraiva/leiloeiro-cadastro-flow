@@ -114,8 +114,8 @@ const RegisterForm = () => {
 
       const data: ApiResponse = await response.json();
       
-      // ✅ A resposta agora é "aguardando_verificacao"
-      if (data.status === "aguardando_verificacao") {
+      // ✅ A resposta agora é "pronto_para_verificacao"
+      if (data.status === "pronto_para_verificacao") {
         setMessage({ type: "success", text: "Dados validados! Agora confirme sua conta." });
         setVerificationStep(true);
         toast.success("Cadastro validado! Escolha o método de verificação.");
