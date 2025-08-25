@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
-const Activate = () => {
+const Ativar = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -68,4 +68,4 @@ const Activate = () => {
   );
 };
 
-export default Activate;
+export default Ativar;
