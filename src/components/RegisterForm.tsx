@@ -44,6 +44,12 @@ const RegisterForm = () => {
   ];
 
   const validateForm = (): boolean => {
+    // ✅ Adicionado a validação do checkbox aqui
+    if (!acceptedTerms) {
+      setMessage({ type: "error", text: "Você deve aceitar os termos de serviço para continuar." });
+      return false;
+    }
+
     if (!formData.nome_empresa.trim()) {
       setMessage({ type: "error", text: "Nome da empresa é obrigatório" });
       return false;
@@ -59,7 +65,6 @@ const RegisterForm = () => {
       setMessage({ type: "error", text: "E-mails temporários não são permitidos!" });
       return false;
     }
-  
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
@@ -88,12 +93,6 @@ const RegisterForm = () => {
       return false;
     }
     
-    // ✅ NOVO: validação do checkbox
-    if (!acceptedTerms) {
-        setMessage({ type: "error", text: "Você deve aceitar os termos de serviço para continuar." });
-        return false;
-    }
-
     return true;
   };
 
@@ -146,7 +145,6 @@ const RegisterForm = () => {
     setMessage(null);
   };
   
-  // ✅ Nova função para enviar o código após o usuário escolher o método
   const handleSendOtp = async (method: "email" | "whatsapp" | null) => {
     if (!method) {
       setOtpMessage({ type: "error", text: "Selecione um método de verificação" });
@@ -158,7 +156,6 @@ const RegisterForm = () => {
     setOtpMessage(null);
 
     try {
-      // ✅ URL do webhook para envio/reenvio do código
       const webhookUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/send-otp";
       
       const response = await fetch(webhookUrl, {
@@ -202,7 +199,6 @@ const RegisterForm = () => {
     setOtpMessage(null);
 
     try {
-      // ✅ URL do webhook para verificação do código
       const verifyUrl = "https://n8n.leilaolovers.com.br/webhook/leiloeiro/verify-otp";
       
       const response = await fetch(verifyUrl, {
@@ -221,7 +217,6 @@ const RegisterForm = () => {
       if (data.status === "sucesso") {
         setOtpMessage({ type: "success", text: "✅ Conta verificada com sucesso!" });
         toast.success("Conta verificada com sucesso!");
-        // Reset form after successful verification
         setTimeout(() => {
           setFormData({ nome_empresa: "", email: "", whatsapp: "", senha: "" });
           setVerificationStep(false);
@@ -314,7 +309,7 @@ const RegisterForm = () => {
           )}
         </div>
         
-        {/* ✅ NOVO: Checkbox para termos de serviço */}
+        {/* ✅ Checkbox para termos de serviço */}
         {!verificationStep && (
           <div className="flex items-center space-x-2 mt-4">
             <input
@@ -334,8 +329,8 @@ const RegisterForm = () => {
         {!verificationStep && (
           <button
             type="submit"
-            disabled={isLoading || !acceptedTerms} // ✅ Propriedade `disabled` atualizada
-            className="form-button"
+            disabled={isLoading || !acceptedTerms}
+            className={`form-button ${isLoading || !acceptedTerms ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {isLoading ? (
               <>
@@ -373,7 +368,6 @@ const RegisterForm = () => {
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
-                // ✅ Atualizado para a nova função
                 onClick={() => handleSendOtp("email")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "email"
@@ -386,7 +380,6 @@ const RegisterForm = () => {
               </button>
               <button
                 type="button"
-                // ✅ Atualizado para a nova função
                 onClick={() => handleSendOtp("whatsapp")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "whatsapp"
@@ -403,7 +396,6 @@ const RegisterForm = () => {
           {/* Resend Code Button */}
           <button
             type="button"
-            // ✅ Atualizado para a nova função
             onClick={() => handleSendOtp(verificationMethod)}
             disabled={isResending || !verificationMethod}
             className="form-button bg-secondary text-secondary-foreground hover:bg-secondary/80"
