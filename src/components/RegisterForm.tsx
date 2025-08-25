@@ -24,7 +24,8 @@ const RegisterForm = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-  
+  const [acceptedTerms, setAcceptedTerms] = useState(false); // ✅ NOVO ESTADO
+
   // OTP verification states
   const [verificationStep, setVerificationStep] = useState(false);
   const [otpCode, setOtpCode] = useState("");
@@ -85,6 +86,12 @@ const RegisterForm = () => {
     if (formData.senha.length < 8) {
       setMessage({ type: "error", text: "Senha deve ter pelo menos 8 caracteres" });
       return false;
+    }
+    
+    // ✅ NOVO: validação do checkbox
+    if (!acceptedTerms) {
+        setMessage({ type: "error", text: "Você deve aceitar os termos de serviço para continuar." });
+        return false;
     }
 
     return true;
@@ -306,12 +313,28 @@ const RegisterForm = () => {
             </div>
           )}
         </div>
+        
+        {/* ✅ NOVO: Checkbox para termos de serviço */}
+        {!verificationStep && (
+          <div className="flex items-center space-x-2 mt-4">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+              className="h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
+            />
+            <label htmlFor="terms" className="text-sm text-muted-foreground">
+              Eu aceito os <a href="/terms" className="text-primary hover:underline">termos de serviço</a>.
+            </label>
+          </div>
+        )}
 
         {/* Submit Button */}
         {!verificationStep && (
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !acceptedTerms} // ✅ Propriedade `disabled` atualizada
             className="form-button"
           >
             {isLoading ? (
@@ -354,8 +377,8 @@ const RegisterForm = () => {
                 onClick={() => handleSendOtp("email")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "email"
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground"
                 }`}
               >
                 <Mail className="w-4 h-4 mx-auto mb-1" />
@@ -367,8 +390,8 @@ const RegisterForm = () => {
                 onClick={() => handleSendOtp("whatsapp")}
                 className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                   verificationMethod === "whatsapp"
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground"
                 }`}
               >
                 <Phone className="w-4 h-4 mx-auto mb-1" />
