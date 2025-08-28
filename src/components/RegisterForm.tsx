@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 interface FormData {
+  responsavel: string;
   nome_empresa: string;
   email: string;
   whatsapp: string;
@@ -17,6 +18,7 @@ interface ApiResponse {
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState<FormData>({
+    responsavel: "",
     nome_empresa: "",
     email: "",
     whatsapp: "",
@@ -52,6 +54,11 @@ const RegisterForm = () => {
 
     if (!formData.nome_empresa.trim()) {
       setMessage({ type: "error", text: "Nome da empresa é obrigatório" });
+      return false;
+    }
+
+    if (!formData.responsavel.trim()) {
+      setMessage({ type: "error", text: "Nome do responsavel é obrigatório" });
       return false;
     }
 
@@ -218,7 +225,7 @@ const RegisterForm = () => {
         setOtpMessage({ type: "success", text: "✅ Conta verificada com sucesso!" });
         toast.success("Conta verificada com sucesso!");
         setTimeout(() => {
-          setFormData({ nome_empresa: "", email: "", whatsapp: "", senha: "" });
+          setFormData({ nome_empresa: "", responsavel: "", email: "", whatsapp: "", senha: "" });
           setVerificationStep(false);
           setOtpCode("");
           setVerificationMethod(null);
@@ -249,6 +256,21 @@ const RegisterForm = () => {
               value={formData.nome_empresa}
               onChange={handleInputChange}
               placeholder="Nome da Empresa"
+              className="form-input"
+              required
+              disabled={verificationStep}
+            />
+          </div>
+
+          {/* Responsavel */}
+          <div className="relative">
+            <Building2 className="input-icon" />
+            <input
+              type="text"
+              name="responsavel"
+              value={formData.responsavel}
+              onChange={handleInputChange}
+              placeholder="Responsavel"
               className="form-input"
               required
               disabled={verificationStep}
