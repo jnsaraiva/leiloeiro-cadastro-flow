@@ -215,7 +215,7 @@ const RegisterForm = () => {
         },
         body: JSON.stringify({
           email: formData.email,
-          otp_code: otpCode,
+          otp_code: formData.otpCode,
         }),
       });
 
