@@ -231,7 +231,7 @@ const RegisterForm = () => {
           setVerificationMethod(null);
         }, 2000);
       } else {
-        setOtpMessage({ type: "error", text: "❌ Código inválidox. Tente novamente ou reenvie o código." });
+        setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
         toast.error("Código inválido");
       }
     } catch (error) {
