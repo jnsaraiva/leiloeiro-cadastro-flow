@@ -225,12 +225,14 @@ const RegisterForm = () => {
       if (data.status === "sucesso") {
         setOtpMessage({ type: "success", text: "✅ Conta verificada com sucesso!" });
         toast.success("Conta verificada com sucesso!");
+        window.location.reload();
         setTimeout(() => {
           setFormData({ nome_empresa: "", responsavel: "", email: "", whatsapp: "", senha: "" });
           setVerificationStep(false);
           setOtpCode("");
           setVerificationMethod(null);
-        }, 2000);
+          window.location.reload();
+        }, 3000);
       } else {
         setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
         toast.error("Código inválido");
