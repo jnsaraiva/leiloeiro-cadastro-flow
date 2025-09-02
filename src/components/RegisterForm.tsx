@@ -13,7 +13,8 @@ interface FormData {
 
 interface ApiResponse {
   status: string;
-  message?: string;
+  message?: string; 
+  otpMessage?: string;
 }
 
 const RegisterForm = () => {
@@ -154,7 +155,7 @@ const RegisterForm = () => {
   
   const handleSendOtp = async (method: "email" | "whatsapp" | null) => {
     if (!method) {
-      setOtpMessage({ type: "error", text: "Selecione um método de verificação" });
+      set({ type: "error", text: "Selecione um método de verificação" });
       return;
     }
 
