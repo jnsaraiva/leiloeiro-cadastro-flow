@@ -232,7 +232,7 @@ const RegisterForm = () => {
           setOtpCode("");
           setVerificationMethod(null);
           setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
-          window.location.reload();
+         // window.location.reload();
         }, 3000);
       } else {
         setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
