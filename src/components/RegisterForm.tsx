@@ -231,6 +231,7 @@ const RegisterForm = () => {
           setVerificationStep(false);
           setOtpCode("");
           setVerificationMethod(null);
+          setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
           window.location.reload();
         }, 3000);
       } else {
