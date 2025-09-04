@@ -234,7 +234,7 @@ const RegisterForm = () => {
           setOtpCode("");
           setVerificationMethod(null);
           setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
-          navigate('https://dashboard.leilaolovers.com.br');
+          navigate('/dashboard');
         }, 2000);
       } else {
         setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
