@@ -228,14 +228,12 @@ const RegisterForm = () => {
       if (data.status === "sucesso") {
         setOtpMessage({ type: "success", text: "✅ Conta verificada com sucesso!" });
         toast.success("Conta verificada com sucesso!");
-        window.location.reload();
         setTimeout(() => {
           setFormData({ nome_empresa: "", responsavel: "", email: "", whatsapp: "", senha: "" });
           setVerificationStep(false);
           setOtpCode("");
           setVerificationMethod(null);
           setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
-         // window.location.reload();
           navigate('/dashboard');
         }, 3000);
       } else {
