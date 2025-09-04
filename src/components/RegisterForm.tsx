@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Building2, Mail, Lock, Loader2, Phone, RefreshCw, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   responsavel: string;
@@ -45,6 +46,8 @@ const RegisterForm = () => {
     'yopmail.com',
     'sharklasers.com'
   ];
+
+  const navigate = useNavigate();
 
   const validateForm = (): boolean => {
     // ✅ Adicionado a validação do checkbox aqui
@@ -233,6 +236,7 @@ const RegisterForm = () => {
           setVerificationMethod(null);
           setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
          // window.location.reload();
+          navigate('/dashboard');
         }, 3000);
       } else {
         setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
