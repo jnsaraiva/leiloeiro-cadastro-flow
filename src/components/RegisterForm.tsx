@@ -236,7 +236,7 @@ const RegisterForm = () => {
           setVerificationMethod(null);
           setMessage({ type: "success", text: "Conta confirmada. Faça seu login!." });
           //navigate('/dashboard');
-          window.location.href = 'https://dashboard.leilaolovers.com.br/';
+          window.location.href = 'https://login.leilaolovers.com.br/';
         }, 2000);
       } else {
         setOtpMessage({ type: "error", text: "❌ Código inválido. Tente novamente ou reenvie o código." });
